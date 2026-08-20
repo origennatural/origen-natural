@@ -1,0 +1,17 @@
+{
+  "short_name": "Origen Natural",
+  "name": "Origen Natural • App",
+  "icons": [
+    {
+      "src": "/icons/2b50_512.webp",
+      "type": "image/webp",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#0d9488",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/"
+}

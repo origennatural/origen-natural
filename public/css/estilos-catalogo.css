@@ -1,0 +1,37 @@
+/* ==========================================
+   MÓDULO DE OVERLAY CON ANIMACIÓN (FADE-IN)
+   ========================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* Sustituye top, left, width 100vw, height 100vh evitando scrollbars */
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  box-sizing: border-box;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px); /* Fallback obligatorio para Safari */
+  
+  /* Animación optimizada por GPU (solo opacity) */
+  animation: fadeInModal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity;
+}
+
+/* Ocultación estricta */
+.modal-overlay.hidden,
+#image-modal.hidden {
+  display: none !important;
+}
+
+/* Animación de entrada ultraligera */
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

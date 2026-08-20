@@ -1,0 +1,222 @@
+/* ==========================================
+   NAVEGACIÓN, BUSCADOR Y BANNER PWA
+   ========================================== */
+
+/* --- NAVBAR PRINCIPAL --- */
+.navbar {
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  padding: 0.8rem 1.2rem;
+}
+
+.nav-container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: -0.03em;
+  color: var(--dark-color, #0f172a);
+}
+
+.brand-name .dot {
+  color: var(--primary-color, #0d9488);
+  font-style: normal;
+}
+
+.cart-btn {
+  background: var(--light-bg, #f8fafc);
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 0.9rem;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-badge {
+  background: var(--primary-color, #0d9488);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* --- BANNER PWA --- */
+.pwa-banner {
+  background: var(--dark-color, #0f172a);
+  color: #ffffff;
+  padding: 0.8rem 1.2rem;
+}
+
+.pwa-banner.hidden {
+  display: none !important;
+}
+
+.pwa-content {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-install {
+  background: var(--primary-color, #0d9488);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'Urbanist', system-ui, sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* --- BUSCADOR DE PRODUCTOS --- */
+.search-container {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  box-sizing: border-box;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: var(--primary-color, #0d9488);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.search-icon {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  color: #64748b;
+  z-index: 3;
+}
+
+/* El input se vuelve transparente para mostrar la animación cuando está vacío */
+#product-search-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #111827;
+  background: transparent;
+  z-index: 2;
+  position: relative;
+  padding-left: 0;
+}
+
+.clear-search-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0 0.3rem;
+  line-height: 1;
+  z-index: 3;
+}
+
+.clear-search-btn:hover {
+  color: #ef4444;
+}
+
+/* --- PLACEHOLDER ANIMADO EN BUSCADOR --- */
+.animated-placeholder-wrapper {
+  position: absolute;
+  left: 45px;
+  right: 40px;
+  height: 24px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.animated-placeholder-track {
+  display: flex;
+  flex-direction: column;
+  animation: slidePlaceholder 10s infinite ease-in-out;
+}
+
+.animated-placeholder-track span {
+  height: 24px;
+  line-height: 24px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+/* Ocultar el texto animado cuando el campo recibe foco o tiene un valor escrito */
+.search-input-wrapper:focus-within .animated-placeholder-wrapper,
+.search-input-wrapper.active .animated-placeholder-wrapper,
+.search-input-wrapper.has-value .animated-placeholder-wrapper {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+@keyframes slidePlaceholder {
+  0%, 15% { transform: translateY(0); }
+  20%, 35% { transform: translateY(-24px); }
+  40%, 55% { transform: translateY(-48px); }
+  60%, 75% { transform: translateY(-72px); }
+  80%, 95% { transform: translateY(-96px); }
+  100% { transform: translateY(0); }
+}
+
+/* --- BOTÓN VOLVER ARRIBA --- */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 46px;
+  height: 46px;
+  background-color: var(--dark-color, #0f172a);
+  color: #ffffff;
+  border: 2px solid var(--primary-color, #0d9488);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 150;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
+
+.back-to-top:active {
+  transform: scale(0.92);
+}

@@ -1,0 +1,201 @@
+---
+// src/pages/index.astro
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORIGEN Natural | App Tienda Oficial</title>
+
+  <!-- Deshabilitar caché del navegador -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- PWA Metadata -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d9488" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Carga de la fuente Google Sans Flex -->
+  <link rel="stylesheet" href="/css/GoogleSansFlex.css" />
+
+  <!-- Módulos CSS -->
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/products.css" />
+  <link rel="stylesheet" href="/css/cart.css" />
+  <link rel="stylesheet" href="/css/checkout.css" />
+  <link rel="stylesheet" href="/css/estilos-catalogo.css" />
+
+  <!-- SDK oficial del Widget de Wompi -->
+  <script is:inline type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
+</head>
+<body>
+  <!-- Header principal -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" alt="Estrella" class="star-logo-img" />
+        <span class="brand-name">OrigenNatural<span class="brand-ext">.co</span></span>
+      </a>
+
+      <button id="cart-icon-btn" class="cart-btn" style="display: flex; align-items: center; gap: 6px;">
+        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6d2/512.webp" class="animated-emoji" alt="Carrito" style="width: 24px; height: 24px;" />
+        <span>Carrito (<span id="cart-count">0</span>)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Banner de instalación PWA -->
+  <div id="pwa-install-banner" class="pwa-banner hidden">
+    <div class="pwa-content">
+      <div class="pwa-text">
+        <strong>Instala OrigenNatural.co</strong>
+        <span>Accede más rápido desde tu pantalla de inicio</span>
+      </div>
+      <button id="btn-install-app" class="btn-install">Instalar</button>
+    </div>
+  </div>
+
+  <main class="main-container">
+    <!-- Seccion Hero / Banner -->
+    <section class="hero-card">
+      <span class="hero-tag">Salud & Biene ORIGEN Natural</span>
+      <h2>Nutrición avanzada para tu cuerpo</h2>
+      <p>Productos con registro sanitario, envío seguro a toda Colombia y pago protegido.</p>
+    </section>
+
+    <!-- Buscador de Ancho Completo con Placeholder Animado Vertical -->
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <!-- LUPA ANIMADA -->
+        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f50e/512.webp" alt="Lupa de Búsqueda" class="search-animated-icon" />
+        <input type="text" id="product-search-input" aria-label="Buscar productos" autocomplete="off" />
+        
+        <!-- PLACEHOLDER SLIDER VERTICAL -->
+        <div class="animated-placeholder-wrapper" id="placeholder-wrapper">
+          <div class="animated-placeholder-track" id="placeholder-track">
+            <span>Buscar "Colágeno Hidrolizado"...</span>
+            <span>Buscar "Vitamina C + Zinc"...</span>
+            <span>Buscar "Omega 3 Aceite de Pescado"...</span>
+            <span>Buscar "Tratamientos para el insomnio"...</span>
+            <span>Buscar "Suplementos de Magnesio"...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENEDOR DE RESULTADOS / SUGERENCIAS -->
+      <div id="search-results-dropdown" class="search-results-dropdown hidden"></div>
+      <button id="clear-search-btn" class="clear-search-btn hidden" aria-label="Limpiar búsqueda">&times;</button>
+    </div>
+
+    <!-- Catálogo de Productos -->
+    <section class="catalog-section">
+      <h3 class="section-title">Nuestros Productos</h3>
+      <div class="product-grid" id="product-grid">
+        <!-- Carga dinámica por JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal del Carrito -->
+  <div id="cart-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Tu Carrito de Compras</h3>
+        <button id="close-cart-btn" class="close-btn">&times;</button>
+      </div>
+
+      <div id="cart-items-container" class="cart-items">
+        <!-- Elementos del carrito cargados por JS -->
+      </div>
+
+      <div class="modal-footer">
+        <div class="summary-line">
+          <span>Subtotal:</span>
+          <strong id="cart-total">$0 COP</strong>
+        </div>
+
+        <!-- Datos de Envío -->
+        <div class="shipping-form">
+          <div class="checkout-form">
+            <h3>Datos de Envío y Facturación</h3>
+            <input type="text" id="customer-name" placeholder="Nombre completo o Razon Social" required />
+            <input type="text" id="customer-id" placeholder="Cédula (CC) o NIT" required />
+            <input type="email" id="customer-email" placeholder="Correo electrónico" required />
+            <input type="tel" id="customer-phone" placeholder="Teléfono / WhatsApp" required />
+            <input type="text" id="customer-city" placeholder="Ciudad / Municipio" required />
+            <input type="text" id="customer-address" placeholder="Dirección completa y barrio" required />
+            <textarea id="customer-notes" placeholder="Notas adicionales (ej: Apto 302, dejar en portería)" rows="2"></textarea>
+          </div>
+        </div>
+
+        <button id="btn-wompi-pay" class="btn-checkout">
+          🔒 Pagar con Wompi (Nequi / PSE / Tarjeta)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón Volver Arriba -->
+  <button id="btn-back-to-top" class="back-to-top hidden" aria-label="Volver arriba">
+    ↑
+  </button>
+
+  <!-- Modal de Confirmación / Recibo -->
+  <div id="receipt-modal" class="cart-modal hidden">
+    <div class="cart-modal-content" style="background: #ffffff; width: 100%; max-width: 500px; border-radius: 12px; padding: 1.5rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+      <div style="text-align: center; margin-bottom: 1rem;">
+        <span style="font-size: 3rem;">🎉</span>
+        <h3 style="margin: 0.5rem 0 0; color: #166534;">¡Pago Confirmado!</h3>
+        <p style="font-size: 0.85rem; color: #64748b; margin-top: 4px;">Tu pedido ha sido procesado con éxito</p>
+      </div>
+
+      <div id="receipt-details-container" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; font-size: 0.85rem; max-height: 350px; overflow-y: auto;">
+        <!-- Se llena dinámicamente -->
+      </div>
+
+      <div style="margin-top: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;">
+        <a id="btn-whatsapp-copy" href="#" target="_blank" class="btn-add-cart" style="background-color: #25D366; text-decoration: none; text-align: center; display: block; padding: 0.8rem; border-radius: 6px; color: #fff; font-weight: bold;">
+          📲 Enviar copia por WhatsApp (Opcional)
+        </a>
+        <button id="btn-close-receipt" class="qty-btn" style="width: 100%; padding: 0.8rem; background: #e2e8f0; color: #334155; font-weight: 600; border: none; border-radius: 6px; cursor: pointer;">
+          Cerrar y volver a la tienda
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE VISTA RÁPIDA (IMAGEN Y VIDEO) -->
+  <div id="image-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="close-media-modal-btn" class="close-btn">&times;</button>
+      <div id="modal-media-content">
+        <!-- Aquí app.js inyectará dinámicamente la imagen o el video del producto -->
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-logo-container">
+      <a href="#" class="brand-logo footer-brand">
+        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" alt="Estrella" class="star-logo-img" />
+        <span class="brand-name">OrigenNatural<span class="brand-ext">.co</span></span>
+      </a>
+    </div>
+    <p class="sub">Productos Naturales | www.OrigenNatural.co</p>
+  </footer>
+
+  <!-- Módulos JavaScript (Carga ordenada al final con directiva Astro) -->
+  <script is:inline src="/js/products.js"></script>
+  <script is:inline src="/js/cart.js"></script>
+  <script is:inline src="/js/ui.js"></script>
+  <script is:inline src="/js/checkout.js"></script>
+  <script is:inline src="/js/app.js"></script>
+</body>
+</html>
