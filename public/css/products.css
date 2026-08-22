@@ -233,10 +233,10 @@
 }
 
 /* ==========================================
-   SLIDER VERTICAL DENTRO DE LAS CARDS
+   SLIDER HORIZONTAL A LA IZQUIERDA (TICKER)
    ========================================== */
 .product-slider-badge-container {
-  height: 26px;
+  height: 28px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -244,47 +244,43 @@
   margin-bottom: 0.2rem;
   position: relative;
   width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .product-slider-badge-track {
   display: flex;
-  flex-direction: column;
-  animation: cardBadgeSlide 7.5s infinite ease-in-out;
-  width: 100%;
+  flex-direction: row; /* Fila horizontal */
+  gap: 8px;
+  width: max-content;
+  animation: cardBadgeSlideLeft 10s linear infinite; /* Animación continua fluida */
 }
 
-/* Pausar al hacer hover */
+/* Pausa suave al pasar el cursor sobre la tarjeta */
 .product-card:hover .product-slider-badge-track {
   animation-play-state: paused;
 }
 
 .badge-item {
-  height: 26px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 0 8px;
+  padding: 0 10px;
   border-radius: 12px;
   color: #ffffff;
   font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
   box-sizing: border-box;
-  width: max-content;
+  flex-shrink: 0; /* Evita que el badge se encoja */
 }
 
-/* Gradientes de color */
-.badge-purple {
-  background: linear-gradient(90deg, #6f3d91, #520e6f);
-}
-
-.badge-teal {
-  background: linear-gradient(90deg, #0d9488, #0f766e);
-}
-
-.badge-gold {
-  background: linear-gradient(90deg, #d97706, #b45309);
-}
+/* Colores de badges */
+.badge-purple { background: linear-gradient(90deg, #6f3d91, #520e6f); }
+.badge-teal   { background: linear-gradient(90deg, #0d9488, #0f766e); }
+.badge-green  { background: linear-gradient(90deg, #16a34a, #15803d); }
+.badge-gold   { background: linear-gradient(90deg, #d97706, #b45309); }
 
 .badge-item img {
   width: 13px;
@@ -292,18 +288,12 @@
   object-fit: contain;
 }
 
-/* Keyframes animación de subida (3 items, 26px alto c/u) */
-@keyframes cardBadgeSlide {
-  0%, 26% {
-    transform: translateY(0);
-  }
-  33%, 59% {
-    transform: translateY(-26px);
-  }
-  66%, 92% {
-    transform: translateY(-52px);
+/* Animación de desplazamiento hacia la izquierda */
+@keyframes cardBadgeSlideLeft {
+  0% {
+    transform: translateX(0%);
   }
   100% {
-    transform: translateY(0);
+    transform: translateX(-50%); /* Se desplaza exactamente la mitad para reiniciar sin salto */
   }
 }

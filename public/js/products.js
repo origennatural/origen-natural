@@ -157,13 +157,16 @@ function renderProducts(filterText = "") {
 
     const isVideo = product.image && product.image.toLowerCase().endsWith('.mp4');
 
-    // CONSTRUIR DINÁMICAMENTE LOS BADGES DE ESTE PRODUCTO
-    const badgesList = (product.badges || []).map(b => `
+    // CONSTRUIR DINÁMICAMENTE LOS BADGES (HORIZONTAL E INDEPENDIENTES)
+    const rawBadges = (product.badges || []).map(b => `
       <div class="badge-item ${b.bg}">
         <img src="${b.icon}" alt="icon">
         <span>${b.text}</span>
       </div>
     `).join("");
+
+    // Duplicamos los badges para lograr el bucle infinito sin saltos
+    const badgesList = rawBadges + rawBadges;
 
     return `
       <div class="product-card">
@@ -210,10 +213,10 @@ function renderProducts(filterText = "") {
           ${ahorroFormateado}
         </div>
 
-        <!-- SLIDER DINÁMICO E INDEPENDIENTE DE BADGES -->
-        ${badgesList ? `
+        <!-- SLIDER HORIZONTAL HACIA LA IZQUIERDA -->
+        ${rawBadges ? `
           <div class="product-slider-badge-container">
-            <div class="product-slider-badge-track" style="animation-duration: ${(product.badges.length * 2.5)}s;">
+            <div class="product-slider-badge-track">
               ${badgesList}
             </div>
           </div>
