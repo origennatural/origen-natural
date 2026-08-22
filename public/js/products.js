@@ -172,7 +172,29 @@ function renderProducts(filterText = "") {
           ${ahorroFormateado}
         </div>
 
-        <div class="product-footer" style="margin-top: 0.8rem;">
+        <!-- PLACEHOLDER SLIDER VERTICAL ENCIMA DEL BOTÓN -->
+        <div class="product-slider-badge-container">
+          <div class="product-slider-badge-track">
+            
+            <div class="badge-item badge-purple">
+              <img src="https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" alt="icon">
+              <span>Vendedor estrella</span>
+            </div>
+
+            <div class="badge-item badge-teal">
+              <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" alt="icon">
+              <span>Marca ORIGEN Natural™</span>
+            </div>
+
+            <div class="badge-item badge-gold">
+              <img src="https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" alt="icon">
+              <span>Envío Gratis Disponible</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="product-footer" style="margin-top: 0.4rem;">
           <button class="btn-add-cart" onclick="addToCart('${product.id}')">+ Agregar al Carrito</button>
         </div>
       </div>

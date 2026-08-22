@@ -231,3 +231,79 @@
 .modal-animated-video::-webkit-media-controls-enclosure {
   display: none !important;
 }
+
+/* ==========================================
+   SLIDER VERTICAL DENTRO DE LAS CARDS
+   ========================================== */
+.product-slider-badge-container {
+  height: 26px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  margin-top: 0.8rem;
+  margin-bottom: 0.2rem;
+  position: relative;
+  width: 100%;
+}
+
+.product-slider-badge-track {
+  display: flex;
+  flex-direction: column;
+  animation: cardBadgeSlide 7.5s infinite ease-in-out;
+  width: 100%;
+}
+
+/* Pausar al hacer hover */
+.product-card:hover .product-slider-badge-track {
+  animation-play-state: paused;
+}
+
+.badge-item {
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: max-content;
+}
+
+/* Gradientes de color */
+.badge-purple {
+  background: linear-gradient(90deg, #6f3d91, #520e6f);
+}
+
+.badge-teal {
+  background: linear-gradient(90deg, #0d9488, #0f766e);
+}
+
+.badge-gold {
+  background: linear-gradient(90deg, #d97706, #b45309);
+}
+
+.badge-item img {
+  width: 13px;
+  height: 13px;
+  object-fit: contain;
+}
+
+/* Keyframes animación de subida (3 items, 26px alto c/u) */
+@keyframes cardBadgeSlide {
+  0%, 26% {
+    transform: translateY(0);
+  }
+  33%, 59% {
+    transform: translateY(-26px);
+  }
+  66%, 92% {
+    transform: translateY(-52px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
