@@ -344,7 +344,7 @@
 }
 
 .btn-back-to-top:hover {
-  transform: scale(1.1);navbar
+  transform: scale(1.1);
   background-color: #115e59;
 }
 
@@ -403,7 +403,7 @@
   border-radius: 12px;
   padding: 0.5rem 0.8rem;
   box-shadow: 0 4px 15px rgba(13, 148, 136, 0.12);
-  transition: all 0.25 ease;
+  transition: all 0.25s ease;
 }
 
 /* Realce al enfocar/escribir */
