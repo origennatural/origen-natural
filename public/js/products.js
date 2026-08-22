@@ -14,7 +14,13 @@ const PRODUCTS = [
     usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
     price: 15600,
     originalPrice: 22300,
-    image: "/images/gaf_plus_300ml.mp4"
+    image: "/images/gaf_plus_300ml.mp4",
+    // BADGES INDEPENDIENTES Y PERSONALIZADOS
+    badges: [
+      { text: "Vendedor estrella", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
+      { text: "Fórmula GrenLab", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
+      { text: "Envío Gratis Disponible", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
+    ]
   },
   {
     id: "origen_disco",
@@ -27,7 +33,12 @@ const PRODUCTS = [
     usage: "Disolver 1 disco en un vaso de agua caliente al día.",
     price: 17800,
     originalPrice: 25450,
-    image: "/images/origen-disco.mp4"
+    image: "/images/origen-disco.mp4",
+    badges: [
+      { text: "100% Fibra Natural", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
+      { text: "Línea ORIGEN Oficial", bg: "badge-purple", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
+      { text: "Despacho Inmediato", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
+    ]
   },
   {
     id: "origen_30_comprimidos",
@@ -40,7 +51,12 @@ const PRODUCTS = [
     usage: "Disolver 1 comprimido en un vaso de agua caliente al día.",
     price: 30000,
     originalPrice: 42900,
-    image: "/images/origen_30_comprimidos.mp4"
+    image: "/images/origen_30_comprimidos.mp4",
+    badges: [
+      { text: "Producto Más Vendido", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
+      { text: "Marca ORIGEN Natural™", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
+      { text: "30 Porciones Rendidoras", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" }
+    ]
   },
   {
     id: "origen_360ml",
@@ -53,7 +69,12 @@ const PRODUCTS = [
     usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
     price: 15600,
     originalPrice: 22300,
-    image: "/images/origen_360ml.mp4"
+    image: "/images/origen_360ml.mp4",
+    badges: [
+      { text: "Regenerador Articular", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
+      { text: "Calidad Naturalisima", bg: "badge-purple", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
+      { text: "Oferta Especial", bg: "badge-gold", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp" }
+    ]
   },
   {
     id: "origen_400ml",
@@ -66,7 +87,12 @@ const PRODUCTS = [
     usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
     price: 15600,
     originalPrice: 22300,
-    image: "/images/origen_400ml.mp4"
+    image: "/images/origen_400ml.mp4",
+    badges: [
+      { text: "Mayor Contenido 400mL", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
+      { text: "Laboratorios Vanier", bg: "badge-purple", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
+      { text: "Garantía de Satisfacción", bg: "badge-teal", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
+    ]
   },
   {
     id: "vcol_360ml",
@@ -79,11 +105,16 @@ const PRODUCTS = [
     usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
     price: 15600,
     originalPrice: 22300,
-    image: "/images/vcol-360ml.mp4"
+    image: "/images/vcol-360ml.mp4",
+    badges: [
+      { text: "VCOL Concentrado", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
+      { text: "Piel y Uñas Fuertes", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
+      { text: "Envío Garantizado", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
+    ]
   }
 ];
 
-// URLs de emojis animados Noto
+// Emojis animados Noto
 const EMOJIS = {
   fire: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp",
   package: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f37e/512.webp",
@@ -126,6 +157,14 @@ function renderProducts(filterText = "") {
 
     const isVideo = product.image && product.image.toLowerCase().endsWith('.mp4');
 
+    // CONSTRUIR DINÁMICAMENTE LOS BADGES DE ESTE PRODUCTO
+    const badgesList = (product.badges || []).map(b => `
+      <div class="badge-item ${b.bg}">
+        <img src="${b.icon}" alt="icon">
+        <span>${b.text}</span>
+      </div>
+    `).join("");
+
     return `
       <div class="product-card">
         <div class="product-image-wrapper">
@@ -135,7 +174,6 @@ function renderProducts(filterText = "") {
               : `<img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy" />`
           }
           
-          <!-- BOTÓN DE VISTA RÁPIDA CIRCULAR CON OJO ANIMADO -->
           <button class="btn-quick-view-circular" onclick="openQuickView('${product.id}')" aria-label="Vista Rápida">
             <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f441/512.webp" alt="Ojo" class="quick-view-eye-icon" />
           </button>
@@ -172,27 +210,14 @@ function renderProducts(filterText = "") {
           ${ahorroFormateado}
         </div>
 
-        <!-- PLACEHOLDER SLIDER VERTICAL ENCIMA DEL BOTÓN -->
-        <div class="product-slider-badge-container">
-          <div class="product-slider-badge-track">
-            
-            <div class="badge-item badge-purple">
-              <img src="https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" alt="icon">
-              <span>Vendedor estrella</span>
+        <!-- SLIDER DINÁMICO E INDEPENDIENTE DE BADGES -->
+        ${badgesList ? `
+          <div class="product-slider-badge-container">
+            <div class="product-slider-badge-track" style="animation-duration: ${(product.badges.length * 2.5)}s;">
+              ${badgesList}
             </div>
-
-            <div class="badge-item badge-teal">
-              <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" alt="icon">
-              <span>Marca ORIGEN Natural™</span>
-            </div>
-
-            <div class="badge-item badge-gold">
-              <img src="https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" alt="icon">
-              <span>Envío Gratis Disponible</span>
-            </div>
-
           </div>
-        </div>
+        ` : ''}
 
         <div class="product-footer" style="margin-top: 0.4rem;">
           <button class="btn-add-cart" onclick="addToCart('${product.id}')">+ Agregar al Carrito</button>
@@ -254,7 +279,6 @@ function closeQuickView() {
   const modal = document.getElementById("image-modal");
   if (!modal) return;
   
-  // Pausar reproducciones internas antes de ocultar
   const video = modal.querySelector("video");
   if (video) {
     video.pause();
@@ -266,7 +290,7 @@ function closeQuickView() {
   modal.style.display = "none";
 }
 
-// Exponer en window para evitar pérdida de alcance con scripts modularizados de Astro
+// Exponer en window
 window.PRODUCTS = PRODUCTS;
 window.renderProducts = renderProducts;
 window.openQuickView = openQuickView;
