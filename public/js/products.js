@@ -298,3 +298,29 @@ window.PRODUCTS = PRODUCTS;
 window.renderProducts = renderProducts;
 window.openQuickView = openQuickView;
 window.closeQuickView = closeQuickView;
+
+/* ==========================================
+   LÓGICA DEL BOTÓN VOLVER ARRIBA
+   ========================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.getElementById("btn-back-to-top");
+
+  if (!backToTopBtn) return;
+
+  // Mostrar u ocultar según el scroll
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add("visible");
+    } else {
+      backToTopBtn.classList.remove("visible");
+    }
+  });
+
+  // Evento clic para subir con desplazamiento suave
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+});
