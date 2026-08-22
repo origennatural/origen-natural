@@ -19,7 +19,7 @@ const PRODUCTS = [
     badges: [
       { text: "Vendedor estrella", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
       { text: "Fórmula GrenLab", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
-      { text: "Envío Gratis Disponible", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
+      { text: "Envío Nacional Disponible", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
     ]
   },
   {
@@ -37,7 +37,7 @@ const PRODUCTS = [
     badges: [
       { text: "100% Fibra Natural", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
       { text: "Línea ORIGEN Oficial", bg: "badge-purple", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
-      { text: "Despacho Inmediato", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
+      { text: "Despacho en 72 Horas (3 Días Hábiles)", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
     ]
   },
   {
