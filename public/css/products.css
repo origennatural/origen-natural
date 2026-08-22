@@ -1,5 +1,5 @@
 /* ==========================================
-   CATÁLOGO DE PRODUCTOS Y VISTA PREVIA (CSS)
+   CATÁLOGO DE PRODUCTOS Y ESTRUCTURA (CSS)
    ========================================== */
 
 .main-container {
@@ -37,11 +37,14 @@
   margin-bottom: 1rem;
 }
 
-/* Grid adaptable de 2 columnas */
-.product-grid {
+/* GRID PRINCIPAL
+   Soporta la clase .product-grid y el ID #product-grid de forma unificada */
+.product-grid,
+#product-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  align-items: stretch; /* Iguala la altura de todas las tarjetas en la misma fila */
 }
 
 /* --- TARJETA DE PRODUCTO --- */
@@ -53,6 +56,13 @@
   border: 1px solid #f1f5f9;
   display: flex;
   flex-direction: column;
+
+  /* REGLAS CLAVE PARA CONTROLAR EL TAMAÑO */
+  width: 100%;
+  max-width: 100%;
+  min-width: 0; /* Previene que hijos con max-content ensanchen el Grid */
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Miniatura Cuadrada 1:1 */
@@ -233,9 +243,12 @@
 }
 
 /* ==========================================
-   SLIDER HORIZONTAL A LA IZQUIERDA (TICKER)
+   SLIDER HORIZONTAL DE BADGES (TICKER INFINITO)
    ========================================== */
+
 .product-slider-badge-container {
+  width: 100%;
+  max-width: 100%;
   height: 28px;
   overflow: hidden;
   display: flex;
@@ -243,20 +256,19 @@
   margin-top: 0.8rem;
   margin-bottom: 0.2rem;
   position: relative;
-  width: 100%;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  box-sizing: border-box;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .product-slider-badge-track {
   display: flex;
-  flex-direction: row; /* Fila horizontal */
-  gap: 8px;
+  flex-direction: row;
   width: max-content;
-  animation: cardBadgeSlideLeft 10s linear infinite; /* Animación continua fluida */
+  will-change: transform;
+  animation: cardBadgeSlideLeft 12s linear infinite;
 }
 
-/* Pausa suave al pasar el cursor sobre la tarjeta */
 .product-card:hover .product-slider-badge-track {
   animation-play-state: paused;
 }
@@ -267,13 +279,14 @@
   align-items: center;
   gap: 6px;
   padding: 0 10px;
+  margin-right: 8px; /* Usamos margin-right en lugar de gap para cálculo exacto de la animación */
   border-radius: 12px;
   color: #ffffff;
   font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
   box-sizing: border-box;
-  flex-shrink: 0; /* Evita que el badge se encoja */
+  flex-shrink: 0;
 }
 
 /* Colores de badges */
@@ -288,12 +301,12 @@
   object-fit: contain;
 }
 
-/* Animación de desplazamiento hacia la izquierda */
+/* Animación fluida de desplazamiento */
 @keyframes cardBadgeSlideLeft {
   0% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%); /* Se desplaza exactamente la mitad para reiniciar sin salto */
+    transform: translateX(-50%);
   }
 }
