@@ -312,7 +312,7 @@
 }
 
 /* ==========================================
-   BOTÓN VOLVER ARRIBA (FLOATING)
+   BOTÓN VOLVER ARRIBA (FLOATING & SVG)
    ========================================== */
 .btn-back-to-top {
   position: fixed;
@@ -330,7 +330,7 @@
   justify-content: center;
   z-index: 99;
   
-  /* Transición suave para aparecer/desaparecer */
+  /* Animación suave para aparecer/desaparecer */
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -348,8 +348,57 @@
   background-color: #115e59;
 }
 
-.btn-back-to-top img {
+/* Estilos para la flecha SVG */
+.btn-back-to-top .arrow-icon {
   width: 20px;
   height: 20px;
-  object-fit: contain;
+  stroke: #ffffff; /* Color de la flecha */
+  transition: transform 0.2s ease;
+}
+
+.btn-back-to-top:hover .arrow-icon {
+  transform: translateY(-2px); /* Pequeño salto al pasar el cursor */
+}
+
+/* ==========================================
+   NAVEGACIÓN FIJA (NAVBAR)
+   ========================================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Siempre visible sobre el resto de la página */
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================
+   BUSCADOR STICKY CON BORDES RESALTADOS
+   ========================================== */
+.search-container {
+  position: sticky;
+  top: 60px; /* Queda fijado justo debajo de la navbar */
+  z-index: 990;
+
+  /* Fondo translúcido con efecto desenfoque */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* Márgenes y forma del contenedor */
+  margin: 0.5rem 0 1.2rem 0;
+  padding: 0.6rem 0.8rem;
+  border-radius: 14px;
+
+  /* Bordes resaltados con el verde de la marca */
+  border: 1.5px solid var(--primary-color, #0d9488);
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15), 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  transition: all 0.3s ease;
+}
+
+/* Resplandor al pasar el ratón o enfocar el buscador */
+.search-container:hover,
+.search-container:focus-within {
+  border-color: #0f766e;
+  box-shadow: 0 6px 24px rgba(13, 148, 136, 0.25);
 }
