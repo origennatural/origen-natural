@@ -344,7 +344,7 @@
 }
 
 .btn-back-to-top:hover {
-  transform: scale(1.1);
+  transform: scale(1.1);navbar
   background-color: #115e59;
 }
 
@@ -376,7 +376,7 @@
    ========================================== */
 .search-container {
   position: sticky;
-  top: 60px; /* Se detiene justo debajo del navbar */
+  top: 75px; /* Se detiene justo debajo del navbar */
   z-index: 990;
   background: transparent; /* Elimina cualquier fondo del contenedor */
   padding: 0.5rem 0;
