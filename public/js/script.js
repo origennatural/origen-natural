@@ -226,3 +226,26 @@ if (document.readyState === "loading") {
   renderProducts();
   setupSearchEvents();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const track = document.querySelector('.animated-placeholder-track');
+  const input = document.getElementById('product-search-input');
+  const wrapper = document.querySelector('.search-input-wrapper');
+
+  if (track) {
+    const totalSpans = track.querySelectorAll('span').length;
+    // Asigna 2.5 segundos por cada frase presente
+    track.style.animationDuration = `${totalSpans * 2.5}s`;
+  }
+
+  // Detectar cuándo ocultar el placeholder si hay texto escrito
+  if (input && wrapper) {
+    input.addEventListener('input', () => {
+      if (input.value.trim() !== '') {
+        wrapper.classList.add('has-value');
+      } else {
+        wrapper.classList.remove('has-value');
+      }
+    });
+  }
+});
