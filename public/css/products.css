@@ -227,19 +227,80 @@
   width: fit-content;
 }
 
-/* --- VIDEO DENTRO DE MODAL MULTIMEDIA --- */
-.modal-animated-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  pointer-events: none;
-  user-select: none;
+/* ==========================================
+   MODAL — VIDEO VERTICAL 9:16
+   ========================================== */
+
+#image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
-.modal-animated-video::-webkit-media-controls,
-.modal-animated-video::-webkit-media-controls-enclosure {
-  display: none !important;
+#image-modal.active {
+  display: flex !important;
+}
+
+.product-detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.25rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+/* Contenedor REAL 9:16 para el MP4 vertical */
+.modal-video-wrapper {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto 1rem;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #000000;
+  position: relative;
+}
+
+/* Video vertical: se muestra completo, sin deformarlo ni recortarlo */
+.modal-vertical-media {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block;
+  background-color: #000000;
+}
+
+/* El botón de cierre queda por encima del video */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
 }
 
 /* ==========================================
@@ -423,3 +484,98 @@
   display: flex;
   flex-direction: column;
 }
+
+/* ==========================================
+   TARJETA DE PRODUCTO (MINIATURA 1:1)
+   ========================================== */
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+.product-image-wrapper video,
+.product-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================
+   ESTRUCUTURA Y CONTENEDOR DEL MODAL (9:16)
+   ========================================== */
+#image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#image-modal.active {
+  display: flex !important;
+}
+
+.product-detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.25rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* CARCASA PARA EL VIDEO 9:16 */
+.modal-video-wrapper {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 16 !important;
+  margin: 0 auto 1rem auto;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #000000;
+  position: relative;
+}
+
+/* RENDERIZADO DEL VIDEO/IMAGEN EN MODAL */
+.modal-vertical-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* Llena el marco 9:16 eliminando las bandas negras */
+  display: block;
+}
+
+/* BOTÓN DE CIERRE */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+

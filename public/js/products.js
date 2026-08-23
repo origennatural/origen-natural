@@ -1,5 +1,5 @@
 /* ==========================================
-   CATÁLOGO DE PRODUCTOS Y RENDERIZADO (ASTRO / PWA)
+   CATÁLOGO DE PRODUCTOS Y RENDERIZADO
    ========================================== */
 
 const PRODUCTS = [
@@ -119,7 +119,6 @@ const PRODUCTS = [
   }
 ];
 
-// Emojis animados Noto
 const EMOJIS = {
   fire: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp",
   package: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f37e/512.webp",
@@ -129,16 +128,14 @@ const EMOJIS = {
   cart: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f6d2/512.webp"
 };
 
-// Formateador reutilizable para Moneda
 const currencyFormatter = new Intl.NumberFormat("es-CO", {
   style: "currency",
   currency: "COP",
   maximumFractionDigits: 0
 });
 
-// Función de escape para prevenir XSS
 function escapeHTML(str) {
-  return String(str).replace(/[&<>"']/g, match => ({
+  return String(str || '').replace(/[&<>"']/g, match => ({
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
@@ -252,7 +249,7 @@ function renderProducts(filterText = "") {
 }
 
 /* ==========================================
-   LÓGICA DEL MODAL CON VIDEO 9:16 VERTICAL
+   LÓGICA DEL MODAL (VIDEO VERTICAL 9:16)
    ========================================== */
 
 function openQuickView(productId) {
@@ -262,19 +259,21 @@ function openQuickView(productId) {
   const modal = document.getElementById("image-modal");
   if (!modal) return;
 
-  const videoSrc = product.modalVideo || product.image;
+  const videoSrc = "/videos/origen-natural-720-1280.mp4";
+
+console.log("VIDEO MODAL FORZADO:", videoSrc);
   const isVideo = videoSrc && videoSrc.toLowerCase().endsWith('.mp4');
 
   modal.innerHTML = `
-    <div class="modal-content product-detail-modal" style="position: relative; max-width: 400px; width: 90%; background: #fff; border-radius: 16px; padding: 1.2rem; margin: auto; max-height: 90vh; overflow-y: auto;">
-      <button type="button" class="close-btn" onclick="closeQuickView()" aria-label="Cerrar vista rápida" style="position: absolute; top: 15px; right: 15px; font-size: 1.6rem; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 20;">&times;</button>
+    <div class="modal-content product-detail-modal">
+      <button type="button" class="close-btn" onclick="closeQuickView()" aria-label="Cerrar vista rápida">&times;</button>
       
-      <!-- CONTENEDOR CONTENIDO Y FORZADO A 9:16 -->
-      <div style="width: 100%; max-width: 320px; aspect-ratio: 9 / 16; margin: 0 auto 1rem auto; border-radius: 12px; overflow: hidden; background: #000; position: relative;">
+      <!-- CONTENEDOR ESPECÍFICO 9:16 VERTICAL -->
+      <div class="modal-video-wrapper">
         ${
           isVideo
-            ? `<video id="modal-video-player" src="${videoSrc}" controls autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; max-height: none !important; object-fit: contain !important; aspect-ratio: 9/16 !important;"></video>`
-            : `<img src="${product.image}" alt="${escapeHTML(product.name)}" style="position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; object-fit: cover !important;" />`
+            ? `<video id="modal-video-player" src="${videoSrc}" controls autoplay loop muted playsinline class="modal-vertical-media"></video>`
+            : `<img src="${product.image}" alt="${escapeHTML(product.name)}" class="modal-vertical-media" />`
         }
       </div>
 
@@ -300,11 +299,10 @@ function openQuickView(productId) {
   modal.classList.add("active");
   modal.style.display = "flex";
 
-  // Asegurar que el video intente reproducirse en móviles (iOS Fix)
   const modalVideo = document.getElementById("modal-video-player");
   if (modalVideo) {
     modalVideo.play().catch(() => {
-      /* Manejo discreto si el autoplays es bloqueado por el navegador */
+      /* Prevención de bloqueo Autoplay en iOS / Android */
     });
   }
 }
@@ -313,9 +311,11 @@ function closeQuickView() {
   const modal = document.getElementById("image-modal");
   if (!modal) return;
 
-  // Pausar video al cerrar para liberar audio/recursos
   const video = modal.querySelector("video");
-  if (video) video.pause();
+  if (video) {
+    video.pause();
+    video.currentTime = 0;
+  }
 
   modal.classList.add("hidden");
   modal.classList.remove("active");

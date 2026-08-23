@@ -107,76 +107,310 @@ function renderProducts(filterText = "") {
 }
 
 /* ==========================================
-   VISTA RÁPIDA DE PRODUCTO (MODAL)
+   VISTA RÁPIDA DE PRODUCTO — VIDEO 9:16
    ========================================== */
 function openQuickView(productId) {
-  if (typeof PRODUCTS === "undefined") return;
+  if (typeof PRODUCTS === "undefined" || !Array.isArray(PRODUCTS)) {
+    console.error("PRODUCTS no está disponible.");
+    return;
+  }
+
   const product = PRODUCTS.find(p => p.id === productId);
-  if (!product) return;
+
+  if (!product) {
+    console.error("Producto no encontrado:", productId);
+    return;
+  }
 
   const modal = document.getElementById("image-modal");
-  if (!modal) return;
 
-  // 1. Prioriza de forma estricta el video vertical (modalVideo) sobre la miniatura
-  const mediaUrl = product.modalVideo || product.image;
-  const isVideo = mediaUrl && mediaUrl.toLowerCase().endsWith('.mp4');
+  if (!modal) {
+    console.error("No existe #image-modal");
+    return;
+  }
+
+  /*
+   * IMPORTANTE:
+   * La tarjeta usa product.image = video 1:1.
+   * El botón VER usa EXCLUSIVAMENTE product.modalVideo = video 9:16.
+   */
+
+  if (!product.modalVideo) {
+    console.error(
+      `El producto "${product.name}" no tiene configurado un modalVideo 9:16.`
+    );
+    return;
+  }
+
+  const videoUrl = product.modalVideo;
+
+  console.log("=================================");
+  console.log("VISTA RÁPIDA");
+  console.log("Producto:", product.name);
+  console.log("Miniatura 1:1:", product.image);
+  console.log("Video modal 9:16:", videoUrl);
+  console.log("=================================");
 
   modal.innerHTML = `
-    <div class="modal-content product-detail-modal" style="position: relative; max-width: 400px; width: 90%; background: #fff; border-radius: 16px; padding: 1.2rem; margin: auto; max-height: 90vh; overflow-y: auto;">
-      
-      <!-- Botón de Cierre -->
-      <button class="close-btn" onclick="closeQuickView()" style="position: absolute; top: 15px; right: 15px; font-size: 1.6rem; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 20;">&times;</button>
-      
-      <!-- CONTENEDOR 9:16 FORZADO -->
-      <div style="width: 100%; max-width: 290px; aspect-ratio: 9 / 16; margin: 0 auto 1rem auto; border-radius: 12px; overflow: hidden; background: #000; position: relative;">
-        ${
-          isVideo
-            ? `<video src="${mediaUrl}" controls autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; object-fit: cover !important; aspect-ratio: 9/16 !important; margin: 0 !important; padding: 0 !important;"></video>`
-            : `<img src="${mediaUrl}" alt="${product.name}" style="position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; object-fit: cover !important;" />`
-        }
+    <div
+      class="product-detail-modal"
+      style="
+        position: relative;
+        width: min(92vw, 400px);
+        max-height: 94vh;
+        background: #fff;
+        border-radius: 18px;
+        padding: 1rem;
+        margin: auto;
+        overflow-y: auto;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+      "
+    >
+
+      <!-- BOTÓN CERRAR -->
+      <button
+        type="button"
+        class="close-btn"
+        onclick="closeQuickView()"
+        aria-label="Cerrar"
+        style="
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          z-index: 50;
+          width: 38px;
+          height: 38px;
+          border: none;
+          border-radius: 50%;
+          background: rgba(0,0,0,0.7);
+          color: white;
+          font-size: 1.6rem;
+          line-height: 1;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        &times;
+      </button>
+
+
+      <!-- ==================================
+           VIDEO REAL 9:16
+           ================================== -->
+      <div
+        style="
+          position: relative;
+          width: 100%;
+          max-width: 300px;
+          aspect-ratio: 9 / 16;
+          margin: 0 auto 1rem;
+          background: #000;
+          border-radius: 14px;
+          overflow: hidden;
+        "
+      >
+
+        <video
+          id="modal-video-player"
+          src="${videoUrl}"
+          controls
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"
+          style="
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            background: #000;
+          "
+        ></video>
+
       </div>
+
 
       <!-- INFORMACIÓN DEL PRODUCTO -->
       <div class="modal-product-info">
-        <span class="product-badge" style="background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">${product.badge || 'Producto'}</span>
-        <h3 style="margin: 0.5rem 0; color: #0f172a;">${product.name}</h3>
-        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;"><strong>Laboratorio:</strong> ${product.Laboratorio || product.fabricado || 'N/A'}</p>
-        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;"><strong>Contenido:</strong> ${product.netContent || 'N/A'}</p>
-        <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.4rem;"><strong>Beneficio:</strong> ${product.benefit || 'N/A'}</p>
-        <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.8rem;"><strong>Modo de Uso:</strong> ${product.usage || 'N/A'}</p>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-          <span style="font-size: 1.2rem; font-weight: bold; color: #0d9488;">$${product.price ? product.price.toLocaleString("es-CO") : 0} COP</span>
-          <button class="btn-add-cart" onclick="addToCart('${product.id}'); closeQuickView();" style="padding: 0.6rem 1rem; background: #0d9488; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+
+        ${
+          product.badge
+            ? `
+              <span
+                class="product-badge"
+                style="
+                  background:#e0f2fe;
+                  color:#0369a1;
+                  padding:2px 8px;
+                  border-radius:4px;
+                  font-size:0.75rem;
+                "
+              >
+                ${product.badge}
+              </span>
+            `
+            : ""
+        }
+
+        <h3
+          style="
+            margin:0.5rem 0;
+            color:#0f172a;
+          "
+        >
+          ${product.name}
+        </h3>
+
+        <p
+          style="
+            font-size:0.85rem;
+            color:#475569;
+            margin-bottom:0.4rem;
+          "
+        >
+          <strong>Laboratorio:</strong>
+          ${product.Laboratorio || product.fabricado || "N/A"}
+        </p>
+
+        <p
+          style="
+            font-size:0.85rem;
+            color:#475569;
+            margin-bottom:0.4rem;
+          "
+        >
+          <strong>Contenido:</strong>
+          ${product.netContent || "N/A"}
+        </p>
+
+        <p
+          style="
+            font-size:0.85rem;
+            color:#334155;
+            margin-bottom:0.4rem;
+          "
+        >
+          <strong>Beneficio:</strong>
+          ${product.benefit || "N/A"}
+        </p>
+
+        <p
+          style="
+            font-size:0.85rem;
+            color:#334155;
+            margin-bottom:0.8rem;
+          "
+        >
+          <strong>Modo de Uso:</strong>
+          ${product.usage || "N/A"}
+        </p>
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+            margin-top:1rem;
+          "
+        >
+
+          <span
+            style="
+              font-size:1.2rem;
+              font-weight:bold;
+              color:#0d9488;
+            "
+          >
+            $${product.price
+              ? product.price.toLocaleString("es-CO")
+              : 0} COP
+          </span>
+
+          <button
+            type="button"
+            class="btn-add-cart"
+            onclick="addToCart('${product.id}'); closeQuickView();"
+            style="
+              padding:0.6rem 1rem;
+              background:#0d9488;
+              color:#fff;
+              border:none;
+              border-radius:6px;
+              cursor:pointer;
+              font-weight:600;
+            "
+          >
             + Agregar al Carrito
           </button>
+
         </div>
+
       </div>
+
     </div>
   `;
 
+
+  /*
+   * ABRIR MODAL
+   */
   modal.classList.remove("hidden");
   modal.classList.add("active");
   modal.style.display = "flex";
+
+
+  /*
+   * INICIAR VIDEO
+   */
+  const video = document.getElementById("modal-video-player");
+
+  if (video) {
+
+    video.load();
+
+    const playVideo = () => {
+      video.play().catch(error => {
+        console.log("Autoplay bloqueado por el navegador:", error);
+      });
+    };
+
+    if (video.readyState >= 2) {
+      playVideo();
+    } else {
+      video.addEventListener("loadeddata", playVideo, {
+        once: true
+      });
+    }
+  }
 }
 
+
 /* ==========================================
-   CIERRE DEL MODAL DE VISTA RÁPIDA
+   CIERRE DEL MODAL
    ========================================== */
 function closeQuickView() {
+
   const modal = document.getElementById("image-modal");
+
   if (!modal) return;
 
-  // Detiene la reproducción de audio/video al cerrar el modal
   const video = modal.querySelector("video");
+
   if (video) {
     video.pause();
-    video.src = "";
+    video.removeAttribute("src");
+    video.load();
   }
 
   modal.classList.add("hidden");
   modal.classList.remove("active");
   modal.style.display = "none";
-}
 
-document.getElementById('image-modal').classList.add('active');
+  modal.innerHTML = "";
+}
