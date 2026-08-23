@@ -111,141 +111,72 @@ function renderProducts(filterText = "") {
    ========================================== */
 function openQuickView(productId) {
   if (typeof PRODUCTS === "undefined") return;
-
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
 
   const modal = document.getElementById("image-modal");
-  const contentContainer = document.getElementById("modal-media-content");
+  if (!modal) return;
 
-  if (!modal || !contentContainer) {
-    console.error("Falta el modal #image-modal o #modal-media-content en el HTML");
-    return;
-  }
+  // 1. Prioriza de forma estricta el video vertical (modalVideo) sobre la miniatura
+  const mediaUrl = product.modalVideo || product.image;
+  const isVideo = mediaUrl && mediaUrl.toLowerCase().endsWith('.mp4');
 
-  const isVideo = product.image && product.image.toLowerCase().endsWith(".mp4");
+  modal.innerHTML = `
+    <div class="modal-content product-detail-modal" style="position: relative; max-width: 400px; width: 90%; background: #fff; border-radius: 16px; padding: 1.2rem; margin: auto; max-height: 90vh; overflow-y: auto;">
+      
+      <!-- Botón de Cierre -->
+      <button class="close-btn" onclick="closeQuickView()" style="position: absolute; top: 15px; right: 15px; font-size: 1.6rem; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 20;">&times;</button>
+      
+      <!-- CONTENEDOR 9:16 FORZADO -->
+      <div style="width: 100%; max-width: 290px; aspect-ratio: 9 / 16; margin: 0 auto 1rem auto; border-radius: 12px; overflow: hidden; background: #000; position: relative;">
+        ${
+          isVideo
+            ? `<video src="${mediaUrl}" controls autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; object-fit: cover !important; aspect-ratio: 9/16 !important; margin: 0 !important; padding: 0 !important;"></video>`
+            : `<img src="${mediaUrl}" alt="${product.name}" style="position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; object-fit: cover !important;" />`
+        }
+      </div>
 
-  if (isVideo) {
-    contentContainer.innerHTML = `
-      <video 
-        src="${product.image}" 
-        controls 
-        autoplay 
-        loop 
-        playsinline 
-        style="width: 100%; max-height: 75vh; border-radius: 10px; display: block; background: #000;">
-        Tu navegador no soporta la reproducción de video.
-      </video>
-    `;
-  } else {
-    contentContainer.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" style="width: 100%; max-height: 75vh; object-fit: contain; border-radius: 10px; display: block;" />
-    `;
-  }
+      <!-- INFORMACIÓN DEL PRODUCTO -->
+      <div class="modal-product-info">
+        <span class="product-badge" style="background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">${product.badge || 'Producto'}</span>
+        <h3 style="margin: 0.5rem 0; color: #0f172a;">${product.name}</h3>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;"><strong>Laboratorio:</strong> ${product.Laboratorio || product.fabricado || 'N/A'}</p>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;"><strong>Contenido:</strong> ${product.netContent || 'N/A'}</p>
+        <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.4rem;"><strong>Beneficio:</strong> ${product.benefit || 'N/A'}</p>
+        <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.8rem;"><strong>Modo de Uso:</strong> ${product.usage || 'N/A'}</p>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+          <span style="font-size: 1.2rem; font-weight: bold; color: #0d9488;">$${product.price ? product.price.toLocaleString("es-CO") : 0} COP</span>
+          <button class="btn-add-cart" onclick="addToCart('${product.id}'); closeQuickView();" style="padding: 0.6rem 1rem; background: #0d9488; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+            + Agregar al Carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
 
   modal.classList.remove("hidden");
-}
-
-function closeMediaModal() {
-  const modal = document.getElementById("image-modal");
-  const contentContainer = document.getElementById("modal-media-content");
-  
-  if (modal) {
-    modal.classList.add("hidden");
-  }
-  if (contentContainer) {
-    contentContainer.innerHTML = "";
-  }
+  modal.classList.add("active");
+  modal.style.display = "flex";
 }
 
 /* ==========================================
-   EVENTOS DEL BUSCADOR DE PRODUCTOS
+   CIERRE DEL MODAL DE VISTA RÁPIDA
    ========================================== */
-function setupSearchEvents() {
-  const searchInput = document.getElementById('product-search-input');
-  const searchWrapper = document.querySelector('.search-input-wrapper');
-  const clearBtn = document.getElementById('clear-search-btn');
+function closeQuickView() {
+  const modal = document.getElementById("image-modal");
+  if (!modal) return;
 
-  if (!searchInput) return;
-
-  if (searchWrapper) {
-    searchInput.addEventListener('focus', () => {
-      searchWrapper.classList.add('active');
-    });
-
-    searchInput.addEventListener('blur', () => {
-      searchWrapper.classList.remove('active');
-    });
+  // Detiene la reproducción de audio/video al cerrar el modal
+  const video = modal.querySelector("video");
+  if (video) {
+    video.pause();
+    video.src = "";
   }
 
-  searchInput.addEventListener('input', () => {
-    const value = searchInput.value;
-    
-    if (searchWrapper) {
-      if (value.trim().length > 0) {
-        searchWrapper.classList.add('has-value');
-      } else {
-        searchWrapper.classList.remove('has-value');
-      }
-    }
-
-    if (clearBtn) {
-      if (value.trim().length > 0) {
-        clearBtn.classList.remove('hidden');
-      } else {
-        clearBtn.classList.add('hidden');
-      }
-    }
-
-    renderProducts(value);
-  });
-
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      if (searchWrapper) searchWrapper.classList.remove('has-value');
-      clearBtn.classList.add('hidden');
-      renderProducts('');
-      searchInput.focus();
-    });
-  }
+  modal.classList.add("hidden");
+  modal.classList.remove("active");
+  modal.style.display = "none";
 }
 
-// --- EXPONER FUNCIONES GLOBALMENTE ---
-window.renderProducts = renderProducts;
-window.openQuickView = openQuickView;
-window.closeMediaModal = closeMediaModal;
-
-// Inicialización automática al cargar el DOM
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => {
-    renderProducts();
-    setupSearchEvents();
-  });
-} else {
-  renderProducts();
-  setupSearchEvents();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const track = document.querySelector('.animated-placeholder-track');
-  const input = document.getElementById('product-search-input');
-  const wrapper = document.querySelector('.search-input-wrapper');
-
-  if (track) {
-    const totalSpans = track.querySelectorAll('span').length;
-    // Asigna 2.5 segundos por cada frase presente
-    track.style.animationDuration = `${totalSpans * 2.5}s`;
-  }
-
-  // Detectar cuándo ocultar el placeholder si hay texto escrito
-  if (input && wrapper) {
-    input.addEventListener('input', () => {
-      if (input.value.trim() !== '') {
-        wrapper.classList.add('has-value');
-      } else {
-        wrapper.classList.remove('has-value');
-      }
-    });
-  }
-});
+document.getElementById('image-modal').classList.add('active');
