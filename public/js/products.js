@@ -7,7 +7,7 @@ const PRODUCTS = [
     id: "gaf_plus_300ml",
     name: "GAF-PLUS 300mL",
     badge: "Estrella",
-    fabricado: "GrenLab",
+    Laboratorio: "GrenLab",
     netContent: "Cont. Neto: 300mL (10 Porciones)",
     invima: "PSA-0690-2025",
     benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
@@ -26,7 +26,7 @@ const PRODUCTS = [
     id: "origen_disco",
     name: "ORIGEN 15 Discos",
     badge: "Línea ORIGEN",
-    fabricado: "Naturalisima",
+    Laboratorio: "Naturalisima",
     netContent: "Cont. Neto: Frasco x 15 Discos (15 Porciones)",
     invima: "PSA-0005343-2024",
     benefit: "Alimento funcional con fibra natural que mejora la digestión y el tránsito intestinal.",
@@ -44,7 +44,7 @@ const PRODUCTS = [
     id: "origen_30_comprimidos",
     name: "ORIGEN Natural 30 Comprimidos",
     badge: "Línea ORIGEN Natural",
-    fabricado: "ORIGEN Natural",
+    Laboratorio: "ORIGEN Natural",
     netContent: "Cont. Neto: Frasco x 30 Comprimidos (30 Porciones)",
     invima: "PSA-0005343-2024",
     benefit: "Alimento funcional con fibra natural que mejora la digestión y el tránsito intestinal.",
@@ -62,7 +62,7 @@ const PRODUCTS = [
     id: "origen_360ml",
     name: "ORIGEN 360mL",
     badge: "Línea ORIGEN",
-    fabricado: "Naturalisima",
+    Laboratorio: "Naturalisima",
     netContent: "Cont. Neto: 360mL (12 Porciones)",
     invima: "RSA-0034995-2024",
     benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
@@ -80,7 +80,7 @@ const PRODUCTS = [
     id: "origen_400ml",
     name: "ORIGEN 400mL",
     badge: "Línea ORIGEN",
-    fabricado: "Laboratorios vanier",
+    Laboratorio: "Laboratorios vanier",
     netContent: "Cont. Neto: 400mL (13 Porciones)",
     invima: "RSAV12136011",
     benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
@@ -98,7 +98,7 @@ const PRODUCTS = [
     id: "vcol_360ml",
     name: "VCOL 360mL",
     badge: "Estrella",
-    fabricado: "Naturalisima",
+    Laboratorio: "Naturalisima",
     netContent: "Cont. Neto: 360mL (12 Porciones)",
     invima: "RSA-0034995-2024",
     benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
@@ -134,7 +134,7 @@ function renderProducts(filterText = "") {
     if (!query) return true;
     return (p.name && p.name.toLowerCase().includes(query)) ||
            (p.benefit && p.benefit.toLowerCase().includes(query)) ||
-           (p.fabricado && p.fabricado.toLowerCase().includes(query)) ||
+           (p.Laboratorio && p.Laboratorio.toLowerCase().includes(query)) ||
            (p.netContent && p.netContent.toLowerCase().includes(query)) ||
            (p.invima && p.invima.toLowerCase().includes(query));
   });
@@ -184,7 +184,7 @@ function renderProducts(filterText = "") {
 
         <div class="product-header" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
           <div style="font-size:0.8rem; color:#475569; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px;">
-            <img src="${EMOJIS.factory}" class="animated-emoji" alt="Fabricado por"> Fabricado por: ${product.fabricado}
+            <img src="${EMOJIS.factory}" class="animated-emoji" alt="Laboratorio"> Laboratorio: ${product.Laboratorio}
           </div>
 
           <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 2px;">
@@ -258,7 +258,7 @@ function openQuickView(productId) {
       <div class="modal-product-info">
         <span class="product-badge" style="background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">${product.badge || 'Producto'}</span>
         <h3 style="margin: 0.5rem 0; color: #0f172a;">${product.name}</h3>
-        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;"><strong>Fabricado por:</strong> ${product.fabricado}</p>
+        <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;"><strong>Laboratorio:</strong> ${product.Laboratorio}</p>
         <p style="font-size: 0.85rem; color: #475569; margin-bottom: 0.4rem;"><strong>Contenido:</strong> ${product.netContent}</p>
         <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.4rem;"><strong>Beneficio:</strong> ${product.benefit}</p>
         <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.8rem;"><strong>Modo de Uso:</strong> ${product.usage}</p>
