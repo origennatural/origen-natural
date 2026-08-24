@@ -97,7 +97,7 @@ function renderProducts(filterText = "") {
         <div class="product-image-wrapper">
           ${
             isVideo
-              ? `<video src="${product.image}" class="product-img" autoplay muted loop playsinline preload="metadata"></video>`
+              ? `<video src="${product.image}" autoplay loop muted playsinline controlsList="nodownload noplaybackrate" disablePictureInPicture oncontextmenu="return false" class="..."></video>`
               : `<img src="${product.image}" alt="${escapeHTML(product.name)}" class="product-img" loading="lazy" />`
           }
           
