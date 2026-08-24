@@ -177,7 +177,7 @@ console.log("VIDEO MODAL FORZADO:", videoSrc);
       <div class="modal-video-wrapper">
         ${
           isVideo
-            ? `<video id="modal-video-player" src="${videoSrc}" autoplay loop muted playsinline class="modal-vertical-media"></video>`
+            ? `<video id="modal-video-player" src="${videoSrc}" autoplay loop muted playsinline controlsList="nodownload noplaybackrate" disablePictureInPicture oncontextmenu="return false" class="modal-vertical-media"></video>`
             : `<img src="${product.image}" alt="${escapeHTML(product.name)}" class="modal-vertical-media" />`
         }
       </div>
