@@ -4,44 +4,6 @@
 
 const PRODUCTS = [
   {
-    id: "gaf_plus_300ml",
-    name: "GAF-PLUS 300mL",
-    badge: "Estrella",
-    laboratorio: "GrenLab",
-    netContent: "Cont. Neto: 300mL (10 Porciones)",
-    invima: "PSA-0690-2025",
-    benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
-    usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
-    price: 15600,
-    originalPrice: 22300,
-    image: "/images/gaf_plus_300ml.mp4",
-    modalVideo: "/videos/origen-natural-720-1280.mp4",
-    badges: [
-      { text: "Vendedor estrella", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
-      { text: "Fórmula GrenLab", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
-      { text: "Envío Nacional Disponible", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
-    ]
-  },
-  {
-    id: "origen_disco",
-    name: "ORIGEN 15 Discos",
-    badge: "Línea ORIGEN",
-    laboratorio: "Naturalisima",
-    netContent: "Cont. Neto: Frasco x 15 Discos (15 Porciones)",
-    invima: "PSA-0005343-2024",
-    benefit: "Alimento funcional con fibra natural que mejora la digestión y el tránsito intestinal.",
-    usage: "Disolver 1 disco en un vaso de agua caliente al día.",
-    price: 17800,
-    originalPrice: 25450,
-    image: "/images/origen-disco.mp4",
-    modalVideo: "/videos/origen-natural-720-1280.mp4",
-    badges: [
-      { text: "100% Fibra Natural", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
-      { text: "Línea ORIGEN Oficial", bg: "badge-purple", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
-      { text: "Despacho en 72 Horas (3 Días Hábiles)", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
-    ]
-  },
-  {
     id: "origen_30_comprimidos",
     name: "ORIGEN Natural 30 Comprimidos",
     badge: "Línea ORIGEN Natural",
@@ -58,63 +20,6 @@ const PRODUCTS = [
       { text: "Producto Más Vendido", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
       { text: "Marca ORIGEN Natural™", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
       { text: "30 Porciones Rendidoras", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" }
-    ]
-  },
-  {
-    id: "origen_360ml",
-    name: "ORIGEN 360mL",
-    badge: "Línea ORIGEN",
-    laboratorio: "Naturalisima",
-    netContent: "Cont. Neto: 360mL (12 Porciones)",
-    invima: "RSA-0034995-2024",
-    benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
-    usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
-    price: 15600,
-    originalPrice: 22300,
-    image: "/images/origen_360ml.mp4",
-    modalVideo: "/videos/origen-natural-720-1280.mp4",
-    badges: [
-      { text: "Regenerador Articular", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
-      { text: "Calidad Naturalisima", bg: "badge-purple", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
-      { text: "Oferta Especial", bg: "badge-gold", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp" }
-    ]
-  },
-  {
-    id: "origen_400ml",
-    name: "ORIGEN 400mL",
-    badge: "Línea ORIGEN",
-    laboratorio: "Laboratorios vanier",
-    netContent: "Cont. Neto: 400mL (13 Porciones)",
-    invima: "RSAV12136011",
-    benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
-    usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
-    price: 15600,
-    originalPrice: 22300,
-    image: "/images/origen_400ml.mp4",
-    modalVideo: "/videos/origen-natural-720-1280.mp4",
-    badges: [
-      { text: "Mayor Contenido 400mL", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
-      { text: "Laboratorios Vanier", bg: "badge-purple", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
-      { text: "Garantía de Satisfacción", bg: "badge-teal", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
-    ]
-  },
-  {
-    id: "vcol_360ml",
-    name: "VCOL 360mL",
-    badge: "Estrella",
-    laboratorio: "Naturalisima",
-    netContent: "Cont. Neto: 360mL (12 Porciones)",
-    invima: "RSA-0034995-2024",
-    benefit: "Regenera articulaciones, fortalece cabello, uñas y elasticidad de la piel.",
-    usage: "Tomar 1 copa (30ml) al día, preferiblemente en la mañana.",
-    price: 15600,
-    originalPrice: 22300,
-    image: "/images/vcol-360ml.mp4",
-    modalVideo: "/videos/origen-natural-720-1280.mp4",
-    badges: [
-      { text: "VCOL Concentrado", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
-      { text: "Piel y Uñas Fuertes", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" },
-      { text: "Envío Garantizado", bg: "badge-gold", icon: "https://aimg.kwcdn.com/upload_aimg/aftersales/efb13335-b6b6-4984-af7d-a48dbaccb830.png" }
     ]
   }
 ];
@@ -259,7 +164,7 @@ function openQuickView(productId) {
   const modal = document.getElementById("image-modal");
   if (!modal) return;
 
-  const videoSrc = "/videos/origen-natural-720-1280.mp4";
+  const videoSrc = product.modalVideo;
 
 console.log("VIDEO MODAL FORZADO:", videoSrc);
   const isVideo = videoSrc && videoSrc.toLowerCase().endsWith('.mp4');

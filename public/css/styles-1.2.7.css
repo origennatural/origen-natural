@@ -15,7 +15,9 @@
   font-style: normal;
   font-weight: 100 1000;
   font-display: swap;
-  src: url('../fonts/GoogleSansFlex.woff2') format('woff2');
+  src:
+    url('../fonts/GoogleSansFlex.woff2') format('woff2 supports variations'),
+    url('../fonts/GoogleSansFlex.woff2') format('woff2');
 }
 
 :root {
