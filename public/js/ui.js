@@ -11,24 +11,6 @@ function closeCartModal() {
 }
 
 /* ==========================================
-   PUENTE DE VISTA RÁPIDA (CONECTA ID CON EL MODAL)
-   ========================================== */
-
-function openQuickView(productId) {
-  if (typeof PRODUCTS === "undefined") {
-    console.error("La constante PRODUCTS no está definida.");
-    return;
-  }
-  
-  const product = PRODUCTS.find(p => p.id === productId);
-  if (product && product.image) {
-    openMediaModal(product.image, product.name);
-  } else {
-    console.warn("No se encontró el producto o no tiene imagen:", productId);
-  }
-}
-
-/* ==========================================
    MODAL VISTA RÁPIDA - CENTRADO Y SIN DESTELLOS
    ========================================== */
 
@@ -261,9 +243,6 @@ function setupEventListeners() {
 }
 
 // --- EXPONER EN WINDOW PARA EVITAR PÉRDIDA DE ALCANCE ---
-window.openQuickView = openQuickView;
-window.openMediaModal = openMediaModal;
-window.closeImageModal = closeImageModal;
 window.openCartModal = openCartModal;
 window.closeCartModal = closeCartModal;
 window.showOrderReceipt = showOrderReceipt;
