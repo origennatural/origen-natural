@@ -106,20 +106,26 @@ function updateCartUI() {
  */
 function openCartModal() {
   const modal = document.getElementById("cart-modal");
+
   if (modal) {
     modal.classList.remove("hidden");
     modal.classList.add("active");
     modal.style.display = "flex";
   }
+
+  document.body.classList.add("cart-open");
 }
 
 function closeCartModal() {
   const modal = document.getElementById("cart-modal");
+
   if (modal) {
     modal.classList.add("hidden");
     modal.classList.remove("active");
     modal.style.display = "none";
   }
+
+  document.body.classList.remove("cart-open");
 }
 
 // --- EXPONER PROPIEDADES Y FUNCIONES GLOBALMENTE ---

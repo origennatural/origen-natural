@@ -768,7 +768,7 @@ footer.footer .brand-ext,
   background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  z-index: 200;
+  z-index: 1000;
   display: flex;
   align-items: flex-end;
   justify-content: center;
