@@ -342,39 +342,3 @@ function closeQuickView() {
   modal.classList.remove("active");
   modal.style.display = "none";
 }
-
-function syncProductQtyDisplays() {
-  (window.cart || []).forEach(item => {
-    const productElement =
-      document.getElementById(`product-qty-${item.id}`);
-
-    if (productElement) {
-      productElement.textContent = item.qty;
-    }
-
-    const modalElement =
-      document.getElementById(`modal-product-qty-${item.id}`);
-
-    if (modalElement) {
-      modalElement.textContent = item.qty;
-    }
-
-    // Actualizar subtotal de la tarjeta
-    const productSubtotal =
-      document.getElementById(`product-subtotal-${item.id}`);
-
-    if (productSubtotal) {
-      productSubtotal.textContent =
-        `Subtotal: ${currencyFormatter.format(item.price * item.qty)} COP`;
-    }
-
-    // Actualizar subtotal de la vista previa
-    const modalSubtotal =
-      document.getElementById(`modal-product-subtotal-${item.id}`);
-
-    if (modalSubtotal) {
-      modalSubtotal.textContent =
-        `Subtotal: ${currencyFormatter.format(item.price * item.qty)} COP`;
-    }
-  });
-}
