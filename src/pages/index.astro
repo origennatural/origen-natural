@@ -75,13 +75,33 @@
             <span>Buscar "ADELGAZANTE Natural 30 Capsulas 13g"...</span>
             <span>Buscar "ADELGAZANTE NATURAL REDUMEX 30 Capsulas"...</span>
             <span>Buscar "Chupa Panza 30 Capsulas 15g"...</span>
-            <span>Buscar "Chupa Panza 450g"...</span>
-            <span>Buscar "Chupa Panza 450g"...</span>
-            <span>Buscar "Chupa Panza 450g"...</span>
-            <span>Buscar "Chupa Panza 450g"...</span>
+            <span>Buscar "Chupa Panza 450g a"...</span>
+            <span>Buscar "Chupa Panza 450g b"...</span>
+            <span>Buscar "Chupa Panza 450g c"...</span>
+            <span>Buscar "Chupa Panza 450g d"...</span>
           </div>
         </div>
       </div>
+
+      <script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("placeholder-track");
+    if (!track) return;
+
+    const items = track.querySelectorAll("span");
+    if (items.length <= 1) return;
+
+    const itemHeight = 42;
+    const totalDistance = (items.length - 1) * itemHeight;
+
+    track.style.setProperty(
+      "--placeholder-distance",
+      `-${totalDistance}px`
+    );
+
+    track.style.animationDuration = `${items.length * 2.5}s`;
+  });
+</script>
 
       <!-- CONTENEDOR DE RESULTADOS / SUGERENCIAS -->
       <div id="search-results-dropdown" class="search-results-dropdown hidden"></div>
