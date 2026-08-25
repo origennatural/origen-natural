@@ -344,37 +344,46 @@ function closeQuickView() {
 }
 
 function syncProductQtyDisplays() {
-  (window.cart || []).forEach(item => {
+  const products = PRODUCTS || [];
+
+  products.forEach(product => {
+    const cartItem =
+      (window.cart || []).find(item => item.id === product.id);
+
+    const qty = cartItem ? cartItem.qty : 0;
+
+    // Actualizar cantidad en la tarjeta
     const productElement =
-      document.getElementById(`product-qty-${item.id}`);
+      document.getElementById(`product-qty-${product.id}`);
 
     if (productElement) {
-      productElement.textContent = item.qty;
+      productElement.textContent = qty;
     }
 
+    // Actualizar cantidad en la vista previa
     const modalElement =
-      document.getElementById(`modal-product-qty-${item.id}`);
+      document.getElementById(`modal-product-qty-${product.id}`);
 
     if (modalElement) {
-      modalElement.textContent = item.qty;
+      modalElement.textContent = qty;
     }
 
     // Actualizar subtotal de la tarjeta
     const productSubtotal =
-      document.getElementById(`product-subtotal-${item.id}`);
+      document.getElementById(`product-subtotal-${product.id}`);
 
     if (productSubtotal) {
       productSubtotal.textContent =
-        `Subtotal: ${currencyFormatter.format(item.price * item.qty)} COP`;
+        `Subtotal: ${currencyFormatter.format(product.price * qty)} COP`;
     }
 
     // Actualizar subtotal de la vista previa
     const modalSubtotal =
-      document.getElementById(`modal-product-subtotal-${item.id}`);
+      document.getElementById(`modal-product-subtotal-${product.id}`);
 
     if (modalSubtotal) {
       modalSubtotal.textContent =
-        `Subtotal: ${currencyFormatter.format(item.price * item.qty)} COP`;
+        `Subtotal: ${currencyFormatter.format(product.price * qty)} COP`;
     }
   });
 }

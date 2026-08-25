@@ -2,7 +2,7 @@
    INICIALIZACIÓN DE LA APLICACIÓN (ENTRYPOINT)
    ========================================== */
 
-const APP_VERSION = "1.2.7";
+const APP_VERSION = "1.2.8";
 
 // Control de versión para refrescar caché si cambia la versión
 if (localStorage.getItem("app_version") !== APP_VERSION) {

@@ -2,7 +2,7 @@
    SERVICE WORKER - ORIGEN NATURAL PWA
    ========================================== */
 
-const CACHE_NAME = "origennatural-v1.2.7";
+const CACHE_NAME = "origennatural-v1.2.8";
 
 const ASSETS_TO_CACHE = [
   "/",
