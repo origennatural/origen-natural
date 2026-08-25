@@ -12,39 +12,72 @@ try {
 }
 
 /**
- * Agrega un producto al carrito por su ID
+ * Prepara un producto en el carrito sin agregar unidades automáticamente.
+ * La cantidad se controla mediante el selector + / -.
  */
 function addToCart(productId) {
-  const productsList = window.PRODUCTS || (typeof PRODUCTS !== "undefined" ? PRODUCTS : []);
+  const productsList =
+    window.PRODUCTS ||
+    (typeof PRODUCTS !== "undefined" ? PRODUCTS : []);
+
   const existing = cart.find(item => item.id === productId);
 
-  if (existing) { 
-    existing.qty += 1; 
-  } else { 
-    const itemToAdd = productsList.find(p => p.id === productId);
-    if (itemToAdd) {
-      cart.push({ ...itemToAdd, qty: 1 });
-    } else {
-      console.warn(`Producto con ID ${productId} no fue encontrado.`);
-      return;
-    }
+  // Si ya existe, no aumentar la cantidad.
+  if (existing) {
+    saveAndRefreshCart();
+    return;
   }
-  
+
+  const itemToAdd = productsList.find(p => p.id === productId);
+
+  if (!itemToAdd) {
+    console.warn(`Producto con ID ${productId} no fue encontrado.`);
+    return;
+  }
+
+  cart.push({
+    ...itemToAdd,
+    qty: 0
+  });
+
   saveAndRefreshCart();
-  openCartModal();
 }
 
 /**
  * Modifica la cantidad de un ítem en el carrito
  */
 function updateQty(productId, delta) {
-  const item = cart.find(i => i.id === productId);
+  let item = cart.find(i => i.id === productId);
+
+  // Si no existe y estamos aumentando, crear el producto en 0
+  if (!item && delta > 0) {
+    const productsList =
+      window.PRODUCTS ||
+      (typeof PRODUCTS !== "undefined" ? PRODUCTS : []);
+
+    const product = productsList.find(p => p.id === productId);
+
+    if (!product) {
+      console.warn(`Producto con ID ${productId} no fue encontrado.`);
+      return;
+    }
+
+    item = {
+      ...product,
+      qty: 0
+    };
+
+    cart.push(item);
+  }
+
   if (!item) return;
 
   item.qty += delta;
-  if (item.qty <= 0) { 
-    cart = cart.filter(i => i.id !== productId); 
+
+  if (item.qty <= 0) {
+    cart = cart.filter(i => i.id !== productId);
   }
+
   saveAndRefreshCart();
 }
 

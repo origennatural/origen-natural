@@ -145,12 +145,56 @@ function renderProducts(filterText = "") {
           </div>
         ` : ''}
 
-        <div class="product-footer" style="margin-top: 0.4rem;">
-          <button type="button" class="btn-add-cart" onclick="addToCart('${product.id}')">+ Agregar al Carrito</button>
-        </div>
+        <div class="product-footer product-cart-controls" style="margin-top: 0.4rem;">
+  <button
+    type="button"
+    class="qty-btn qty-minus"
+    onclick="changeProductQty('${product.id}', -1)"
+    aria-label="Disminuir cantidad"
+  >−</button>
+
+  <span
+    class="qty-value"
+    id="product-qty-${product.id}"
+  >0</span>
+
+  <button
+    type="button"
+    class="qty-btn qty-plus"
+    onclick="changeProductQty('${product.id}', 1)"
+    aria-label="Aumentar cantidad"
+  >+</button>
+</div>
       </article>
     `;
   }).join("");
+}
+
+function changeProductQty(productId, delta) {
+  updateQty(productId, delta);
+
+  const item = (window.cart || []).find(i => i.id === productId);
+  const qty = item ? item.qty : 0;
+
+  const element = document.getElementById(`product-qty-${productId}`);
+
+  if (element) {
+    element.textContent = qty;
+  }
+}
+
+function changeModalProductQty(productId, delta) {
+  updateQty(productId, delta);
+
+  const item = (window.cart || []).find(i => i.id === productId);
+  const qty = item ? item.qty : 0;
+
+  const element =
+    document.getElementById(`modal-product-qty-${productId}`);
+
+  if (element) {
+    element.textContent = qty;
+  }
 }
 
 /* ==========================================
@@ -192,9 +236,26 @@ console.log("VIDEO MODAL FORZADO:", videoSrc);
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
           <span style="font-size: 1.2rem; font-weight: bold; color: #0d9488;">${currencyFormatter.format(product.price)} COP</span>
-          <button type="button" class="btn-add-cart" onclick="addToCart('${product.id}'); closeQuickView();" style="padding: 0.6rem 1rem; background: #0d9488; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
-            + Agregar al Carrito
-          </button>
+          <div class="modal-cart-controls">
+  <button
+    type="button"
+    class="qty-btn qty-minus"
+    onclick="changeModalProductQty('${product.id}', -1)"
+    aria-label="Disminuir cantidad"
+  >−</button>
+
+  <span
+    class="qty-value"
+    id="modal-product-qty-${product.id}"
+  >0</span>
+
+  <button
+    type="button"
+    class="qty-btn qty-plus"
+    onclick="changeModalProductQty('${product.id}', 1)"
+    aria-label="Aumentar cantidad"
+  >+</button>
+</div>
         </div>
       </div>
     </div>
