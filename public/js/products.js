@@ -192,11 +192,20 @@ function changeModalProductQty(productId, delta) {
   const item = (window.cart || []).find(i => i.id === productId);
   const qty = item ? item.qty : 0;
 
-  const element =
+  // Actualizar cantidad en la vista previa
+  const modalElement =
     document.getElementById(`modal-product-qty-${productId}`);
 
-  if (element) {
-    element.textContent = qty;
+  if (modalElement) {
+    modalElement.textContent = qty;
+  }
+
+  // Actualizar cantidad en la tarjeta principal
+  const productElement =
+    document.getElementById(`product-qty-${productId}`);
+
+  if (productElement) {
+    productElement.textContent = qty;
   }
 }
 
@@ -292,4 +301,22 @@ function closeQuickView() {
   modal.classList.add("hidden");
   modal.classList.remove("active");
   modal.style.display = "none";
+}
+
+function syncProductQtyDisplays() {
+  (window.cart || []).forEach(item => {
+    const productElement =
+      document.getElementById(`product-qty-${item.id}`);
+
+    if (productElement) {
+      productElement.textContent = item.qty;
+    }
+
+    const modalElement =
+      document.getElementById(`modal-product-qty-${item.id}`);
+
+    if (modalElement) {
+      modalElement.textContent = item.qty;
+    }
+  });
 }

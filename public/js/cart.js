@@ -86,8 +86,12 @@ function updateQty(productId, delta) {
  */
 function saveAndRefreshCart() {
   localStorage.setItem("starnatural_cart", JSON.stringify(cart));
-  window.cart = cart; // Sincronización crucial para Wompi Checkout
+  window.cart = cart;
   updateCartUI();
+
+  if (typeof syncProductQtyDisplays === "function") {
+    syncProductQtyDisplays();
+  }
 }
 
 /**
