@@ -154,9 +154,12 @@ function renderProducts(filterText = "") {
   >−</button>
 
   <span
-    class="qty-value"
-    id="product-qty-${product.id}"
-  >0</span>
+  class="qty-value"
+  id="product-qty-${product.id}"
+>${(() => {
+  const cartItem = (window.cart || []).find(i => i.id === product.id);
+  return cartItem ? cartItem.qty : 0;
+})()}</span>
 
   <button
     type="button"
@@ -245,9 +248,12 @@ console.log("VIDEO MODAL FORZADO:", videoSrc);
   >−</button>
 
   <span
-    class="qty-value"
-    id="modal-product-qty-${product.id}"
-  >0</span>
+  class="qty-value"
+  id="modal-product-qty-${product.id}"
+>${(() => {
+  const cartItem = (window.cart || []).find(i => i.id === product.id);
+  return cartItem ? cartItem.qty : 0;
+})()}</span>
 
   <button
     type="button"
