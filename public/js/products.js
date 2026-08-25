@@ -154,12 +154,12 @@ function renderProducts(filterText = "") {
   >−</button>
 
   <span
-  class="qty-value"
-  id="product-qty-${product.id}"
->${(() => {
-  const cartItem = (window.cart || []).find(i => i.id === product.id);
-  return cartItem ? cartItem.qty : 0;
-})()}</span>
+    class="qty-value"
+    id="product-qty-${product.id}"
+  >${(() => {
+    const cartItem = (window.cart || []).find(i => i.id === product.id);
+    return cartItem ? cartItem.qty : 0;
+  })()}</span>
 
   <button
     type="button"
@@ -167,6 +167,18 @@ function renderProducts(filterText = "") {
     onclick="changeProductQty('${product.id}', 1)"
     aria-label="Aumentar cantidad"
   >+</button>
+</div>
+
+<div
+  class="product-subtotal"
+  id="product-subtotal-${product.id}"
+  style="margin-top: 0.4rem; font-size: 0.85rem; font-weight: 700; color: #0d9488; text-align: center;"
+>
+  Subtotal: ${(() => {
+    const cartItem = (window.cart || []).find(i => i.id === product.id);
+    const qty = cartItem ? cartItem.qty : 0;
+    return currencyFormatter.format(product.price * qty);
+  })()} COP
 </div>
       </article>
     `;
@@ -183,6 +195,21 @@ function changeProductQty(productId, delta) {
 
   if (element) {
     element.textContent = qty;
+  }
+
+  // Actualizar subtotal de la tarjeta
+  const subtotalElement =
+    document.getElementById(`product-subtotal-${productId}`);
+
+  if (subtotalElement) {
+    const product = (window.PRODUCTS || []).find(
+      p => p.id === productId
+    );
+
+    if (product) {
+      subtotalElement.textContent =
+        `Subtotal: ${currencyFormatter.format(product.price * qty)} COP`;
+    }
   }
 }
 
@@ -271,7 +298,20 @@ console.log("VIDEO MODAL FORZADO:", videoSrc);
     aria-label="Aumentar cantidad"
   >+</button>
 </div>
-        </div>
+
+<div
+  class="modal-product-subtotal"
+  id="modal-product-subtotal-${product.id}"
+  style="margin-top: 0.5rem; font-size: 0.9rem; font-weight: 700; color: #0d9488; text-align: center;"
+>
+  Subtotal: ${(() => {
+    const cartItem = (window.cart || []).find(i => i.id === product.id);
+    const qty = cartItem ? cartItem.qty : 0;
+    return currencyFormatter.format(product.price * qty);
+  })()} COP
+</div>
+
+</div>
       </div>
     </div>
   `;
@@ -317,6 +357,24 @@ function syncProductQtyDisplays() {
 
     if (modalElement) {
       modalElement.textContent = item.qty;
+    }
+
+    // Actualizar subtotal de la tarjeta
+    const productSubtotal =
+      document.getElementById(`product-subtotal-${item.id}`);
+
+    if (productSubtotal) {
+      productSubtotal.textContent =
+        `Subtotal: ${currencyFormatter.format(item.price * item.qty)} COP`;
+    }
+
+    // Actualizar subtotal de la vista previa
+    const modalSubtotal =
+      document.getElementById(`modal-product-subtotal-${item.id}`);
+
+    if (modalSubtotal) {
+      modalSubtotal.textContent =
+        `Subtotal: ${currencyFormatter.format(item.price * item.qty)} COP`;
     }
   });
 }
