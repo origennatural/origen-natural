@@ -10,8 +10,6 @@ const PRODUCTS = [
     laboratorio: "ORIGEN Natural",
     netContent: "Cont. Neto: Frasco x 30 Comprimidos (30 Porciones)",
     invima: "PSA-0005343-2024",
-    benefit: "Alimento funcional con fibra natural que mejora la digestión y el tránsito intestinal.",
-    usage: "Disolver 1 comprimido en un vaso de agua caliente al día.",
     price: 30000,
     originalPrice: 42900,
     image: "/images/origen_30_comprimidos.mp4",
@@ -116,13 +114,6 @@ function renderProducts(filterText = "") {
             ${product.badge ? `<span class="product-badge">${escapeHTML(product.badge)}</span>` : ''}
           </div>
         </div>
-
-        <div style="font-size:0.85rem; color:#334155; margin: 0.8rem 0; line-height: 1.4;">
-          <p style="margin-bottom:0.3rem; color:#0f172a; font-weight:600; display: flex; align-items: center; gap: 4px;">
-            <img src="${EMOJIS.package}" class="animated-emoji" alt="" aria-hidden="true"> ${escapeHTML(product.netContent)}
-          </p>
-          ${product.benefit ? `<p style="margin-bottom:0.3rem;"><strong>• Beneficio:</strong> ${escapeHTML(product.benefit)}</p>` : ''}
-          <p style="margin-bottom:0.3rem;"><strong>• Modo de Uso:</strong> ${escapeHTML(product.usage)}</p>
 
           <div style="display:flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.6rem; font-size:0.8rem; align-items: center;">
             ${product.invima ? `<span style="color:#166534; font-weight:600; display: flex; align-items: center; gap: 4px;"><img src="${EMOJIS.shield}" class="animated-emoji" alt="" aria-hidden="true"> Invima: ${escapeHTML(product.invima)}</span>` : ''}
