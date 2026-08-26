@@ -1475,6 +1475,105 @@ footer.footer .brand-ext,
 .modal-cart-controls .qty-btn:active {
   transform: scale(0.92);
 }
+
+```css
+/* ==========================================
+   BARRA INFORMATIVA - ATENCIÓN Y DESPACHO
+   ========================================== */
+
+.info-slider {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 0 1rem 0;
+  border-radius: 12px;
+  background: #0d9488;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.18);
+}
+
+.info-slider-track {
+  display: flex;
+  width: 200%;
+  animation: infoSliderMove 8s ease-in-out infinite;
+}
+
+.info-slide {
+  width: 50%;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.info-slide strong {
+  font-weight: 800;
+}
+
+.info-icon {
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+@keyframes infoSliderMove {
+  0%,
+  42% {
+    transform: translateX(0);
+  }
+
+  50%,
+  92% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  .info-slide {
+    min-height: 58px;
+    padding: 9px 12px;
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+
+  .info-icon {
+    font-size: 1.15rem;
+  }
+}
+<section class="info-slider" aria-label="Información de atención y despacho">
+  <div class="info-slider-track">
+
+```
+<div class="info-slide">
+  <span class="info-icon">📲</span>
+  <span>
+    <strong>Atención por WhatsApp</strong>
+    · Lunes a viernes · 9:00 a. m. – 5:00 p. m.
+  </span>
+</div>
+
+<div class="info-slide">
+  <span class="info-icon">🚚</span>
+  <span>
+    <strong>Tiempo de despacho</strong>
+    · Hasta 72 horas hábiles (3 días hábiles)
+  </span>
+</div>
+```
+
+  </div>
+</section>
+
+
 /* ==========================================================================
-   FIN styles-1.2.7.css
+   FIN styles-1.2.8.css
    ========================================================================== */
