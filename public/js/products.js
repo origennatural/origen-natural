@@ -291,14 +291,32 @@ console.log("VIDEO MODAL FORZADO:", videoSrc);
         <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.4rem;"><strong>Beneficio:</strong> ${escapeHTML(product.benefit)}</p>
         <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.8rem;"><strong>Modo de Uso:</strong> ${escapeHTML(product.usage)}</p>
         
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+        <div style="
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+">
   <div>
     <span style="font-size: 1.2rem; font-weight: bold; color: #0d9488;">
       ${currencyFormatter.format(product.price)} COP
     </span>
     ${
       product.netWeight > 0
-        ? `<div style="font-size: 0.9rem; color: #475569; margin-top: 4px;">
+        ? `<div style="
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f766e;
+  background: #ecfdf5;
+  border-left: 3px solid #14b8a6;
+  padding: 4px 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  white-space: nowrap;
+">
             PUM: Gramo a ${currencyFormatter.format(product.price / product.netWeight)}
           </div>`
         : ''
@@ -331,7 +349,7 @@ console.log("VIDEO MODAL FORZADO:", videoSrc);
 <div
   class="modal-product-subtotal"
   id="modal-product-subtotal-${product.id}"
-  style="margin-top: 0.5rem; font-size: 0.9rem; font-weight: 700; color: #0d9488; text-align: center;"
+  style="margin-top: 0.5rem; padding: 5px 9px; font-size: 0.82rem; font-weight: 800; color: #0f766e; background: rgba(204, 251, 241, 0.95); border: 1px solid rgba(13, 148, 136, 0.35); border-radius: 8px; text-align: center; line-height: 1.25; box-shadow: 0 2px 6px rgba(15, 118, 110, 0.12);"
 >
   Subtotal: ${(() => {
     const cartItem = (window.cart || []).find(i => i.id === product.id);
