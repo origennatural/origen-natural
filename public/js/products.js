@@ -19,6 +19,24 @@ const PRODUCTS = [
       { text: "Marca ORIGEN Natural™", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
       { text: "30 Porciones Rendidoras", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" }
     ]
+  },
+
+  {
+    id: "origen-15-discos",
+    name: "ORIGEN Natural 15 Discos Comprimidos",
+    badge: "Línea ORIGEN Natural",
+    laboratorio: "Star Natural",
+    netContent: "Cont. Neto: Frasco x 15 Comprimidos (15 Porciones)",
+    invima: "PSA-0005343-2024",
+    price: 18000,
+    originalPrice: 42900,
+    image: "/images/origen-15-discos.mp4",
+    modalVideo: "/videos/origen-15-discos-720-1280.mp4",
+    badges: [
+      { text: "Producto Más Vendido", bg: "badge-purple", icon: "https://aimg.kwcdn.com/upload_aimg/pho/05f39254-a4b9-4289-9174-56337e13689e.png.slim.png" },
+      { text: "Marca ORIGEN Natural™", bg: "badge-teal", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2b50/512.webp" },
+      { text: "30 Porciones Rendidoras", bg: "badge-green", icon: "https://fonts.gstatic.com/s/e/notoemoji/latest/2705/512.webp" }
+    ]
   }
 ];
 
