@@ -8,8 +8,7 @@ const PRODUCTS = [
     name: "ORIGEN Natural 30 Comprimidos",
     badge: "Línea ORIGEN Natural",
     laboratorio: "ORIGEN Natural",
-    netContent: "Cont. Neto: Frasco x 30 Comprimidos (30 Porciones)",
-    netWeight: 18,
+    netContent: "Cont. Neto: Frasco x 30 Comprimidos (30 Porciones)",`r`n    netWeight: 18,
     invima: "PSA-0005343-2024",
     price: 30000,
     originalPrice: 42900,
@@ -27,8 +26,7 @@ const PRODUCTS = [
     name: "ORIGEN Natural 15 Discos Comprimidos",
     badge: "Línea ORIGEN Natural",
     laboratorio: "Star Natural",
-    netContent: "Cont. Neto: Frasco x 15 Comprimidos (15 Porciones)",
-    netWeight: 9,
+    netContent: "Cont. Neto: Frasco x 15 Comprimidos (15 Porciones)",`r`n    netWeight: 9,
     invima: "PSA-0005343-2024",
     price: 18000,
     originalPrice: 42900,
@@ -141,19 +139,12 @@ function renderProducts(filterText = "") {
         </div>
         
         <div class="price-container">
-  <div class="prices-row">
-    <span class="product-price">${currencyFormatter.format(product.price)} COP</span>
-    <span class="original-price">${currencyFormatter.format(product.originalPrice)}</span>
-  </div>
-
-  ${product.netWeight > 0 ? `
-    <div class="product-pum">
-      PUM: Gramo a ${currencyFormatter.format(product.price / product.netWeight)}
-    </div>
-  ` : ''}
-
-  ${ahorroFormateado}
-</div>
+          <div class="prices-row">
+            <span class="product-price">${currencyFormatter.format(product.price)} COP</span>
+            <span class="original-price">${currencyFormatter.format(product.originalPrice)}</span>
+          </div>
+          ${ahorroFormateado}
+        </div>
 
         ${rawBadges ? `
           <div class="product-slider-badge-container">
@@ -292,18 +283,7 @@ console.log("VIDEO MODAL FORZADO:", videoSrc);
         <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.8rem;"><strong>Modo de Uso:</strong> ${escapeHTML(product.usage)}</p>
         
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-  <div>
-    <span style="font-size: 1.2rem; font-weight: bold; color: #0d9488;">
-      ${currencyFormatter.format(product.price)} COP
-    </span>
-    ${
-      product.netWeight > 0
-        ? `<div style="font-size: 0.9rem; color: #475569; margin-top: 4px;">
-            PUM: Gramo a ${currencyFormatter.format(product.price / product.netWeight)}
-          </div>`
-        : ''
-    }
-  </div>
+          <span style="font-size: 1.2rem; font-weight: bold; color: #0d9488;">${currencyFormatter.format(product.price)} COP</span>
           <div class="modal-cart-controls">
   <button
     type="button"
@@ -416,4 +396,3 @@ function syncProductQtyDisplays() {
     }
   });
 }
-
