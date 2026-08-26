@@ -75,15 +75,15 @@ function setupEventListeners() {
 }
 
 function setupBackToTop() {
-  const btnTop = document.getElementById("back-to-top");
+  const btnTop = document.getElementById("btn-back-to-top");
   if (!btnTop) return;
 
   window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
-      btnTop.classList.remove("hidden");
-    } else {
-      btnTop.classList.add("hidden");
-    }
+  btnTop.classList.add("visible");
+} else {
+  btnTop.classList.remove("visible");
+}
   });
 
   btnTop.addEventListener("click", () => {
